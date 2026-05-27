@@ -2,6 +2,7 @@ import Nav from './components/Nav'
 import Hero from './components/hero/Hero'
 import Pricing from './components/Pricing'
 import WhatIsIncluded from './components/WhatIsIncluded'
+import Portfolio from './components/Portfolio'
 
 export default function App() {
   return (
@@ -10,6 +11,7 @@ export default function App() {
       <Hero />
       <Pricing />
       <WhatIsIncluded />
+      <Portfolio />
     </>
   )
 }
