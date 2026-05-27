@@ -4,6 +4,7 @@ import Pricing from './components/Pricing'
 import WhatIsIncluded from './components/WhatIsIncluded'
 import Portfolio from './components/Portfolio'
 import About from './components/About'
+import Reviews from './components/Reviews'
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
       <WhatIsIncluded />
       <Portfolio />
       <About />
+      <Reviews />
     </>
   )
 }
