@@ -6,6 +6,8 @@ import Portfolio from './components/Portfolio'
 import About from './components/About'
 import Reviews from './components/Reviews'
 import FAQ from './components/FAQ'
+import Contact from './components/Contact'
+import Footer from './components/Footer'
 
 export default function App() {
   return (
@@ -18,6 +20,8 @@ export default function App() {
       <About />
       <Reviews />
       <FAQ />
+      <Contact />
+      <Footer />
     </>
   )
 }
