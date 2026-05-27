@@ -3,5 +3,5 @@ import App from './App'
 
 test('renders site name', () => {
   render(<App />)
-  expect(screen.getByText('Pivens.Design')).toBeInTheDocument()
+  expect(screen.getByText('PIVENS')).toBeInTheDocument()
 })
