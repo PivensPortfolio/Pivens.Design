@@ -3,7 +3,11 @@ import { next } from '@vercel/edge'
 export const config = { matcher: ['/'] }
 
 export default function middleware(request) {
-  const existing = request.cookies.get('pv_hero')?.value
+  // Standard Request object — must read cookies from the header directly
+  const cookieHeader = request.headers.get('cookie') || ''
+  const match = cookieHeader.match(/(?:^|;\s*)pv_hero=([^;]*)/)
+  const existing = match?.[1]
+
   if (existing) return next()
 
   const rand = Math.random()
