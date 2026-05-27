@@ -11,7 +11,7 @@ export function getVariant() {
   const existing = getCookie('pv_hero')
   if (existing) return existing
   const rand = Math.random()
-  const variant = rand < 0.333 ? 'A' : rand < 0.666 ? 'B' : 'C'
+  const variant = rand < 1/3 ? 'A' : rand < 2/3 ? 'B' : 'C'
   setCookie('pv_hero', variant)
   return variant
 }

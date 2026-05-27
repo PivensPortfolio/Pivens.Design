@@ -46,7 +46,7 @@ function FAQItem({ q, a }) {
         </span>
       </button>
       {open && (
-        <p style={{ paddingBottom: 20, fontSize: 15, lineHeight: 1.7, color: '#555' }}>{a}</p>
+        <p style={{ paddingBottom: 20, fontSize: 15, lineHeight: 1.7, color: 'var(--color-text-muted)' }}>{a}</p>
       )}
     </div>
   )
