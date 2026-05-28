@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import emailjs from '@emailjs/browser'
+import { formatPhone } from './utils/format'
 
 const TERMS = [
   {
@@ -100,7 +101,8 @@ export default function ContractPage() {
   const [status, setStatus] = useState('idle') // idle | sending | sent | error
 
   function handleChange(e) {
-    setForm(f => ({ ...f, [e.target.name]: e.target.value }))
+    const { name, value } = e.target
+    setForm(f => ({ ...f, [name]: name === 'mobile' ? formatPhone(value) : value }))
   }
 
   async function handleSubmit(e) {
@@ -186,7 +188,7 @@ export default function ContractPage() {
           <input
             name="mobile"
             type="tel"
-            placeholder="Mobile number *"
+            placeholder="(555) 555-5555 *"
             required
             value={form.mobile}
             onChange={handleChange}

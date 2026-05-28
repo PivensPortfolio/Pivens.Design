@@ -3,6 +3,7 @@ import emailjs from '@emailjs/browser'
 import { motion } from 'framer-motion'
 import { fadeInUp, staggerContainer, viewport } from '../utils/animations'
 import { getCookie } from '../utils/cookies'
+import { formatPhone } from '../utils/format'
 
 const inputStyle = {
   width: '100%', background: 'var(--color-bg-card)', border: 'none',
@@ -20,6 +21,7 @@ export default function Contact() {
   const formRef = useRef()
   const [status, setStatus] = useState('idle') // idle | sending | sent | error
   const [readiness, setReadiness] = useState('')
+  const [mobile, setMobile] = useState('')
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -38,6 +40,7 @@ export default function Contact() {
         window.plausible('Lead', { props: { variant } })
       }
       setStatus('sent')
+      setMobile('')
       formRef.current.reset()
     } catch {
       setStatus('error')
@@ -73,7 +76,15 @@ export default function Contact() {
           <motion.form ref={formRef} onSubmit={handleSubmit} variants={fadeInUp}>
             <input name="from_name" placeholder="Your name" required style={inputStyle} />
             <input name="business_name" placeholder="Business name" required style={inputStyle} />
-            <input name="mobile" type="tel" placeholder="Mobile number" required style={inputStyle} />
+            <input
+              name="mobile"
+              type="tel"
+              placeholder="(555) 555-5555"
+              required
+              value={mobile}
+              onChange={e => setMobile(formatPhone(e.target.value))}
+              style={inputStyle}
+            />
             <input name="reply_to" type="email" placeholder="Email address (optional)" style={inputStyle} />
             <input
               name="existing_url"
