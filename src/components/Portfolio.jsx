@@ -1,3 +1,6 @@
+import { motion } from 'framer-motion'
+import { fadeInUp, staggerContainer, scaleIn, viewport } from '../utils/animations'
+
 const projects = [
   {
     name: 'FreightPath Academy',
@@ -13,15 +16,30 @@ export default function Portfolio() {
     : projects
 
   return (
-    <section id="work" style={{ background: 'var(--color-bg-dark)', padding: '80px 24px' }}>
+    <motion.section
+      id="work"
+      style={{ background: 'var(--color-bg-dark)', padding: '80px 24px' }}
+      whileInView="visible"
+      initial="hidden"
+      variants={staggerContainer}
+      viewport={viewport}
+    >
       <div className="container">
         <p className="section-label">Recent Work</p>
-        <h2 style={{ fontFamily: 'var(--font-black)', fontSize: 'clamp(24px, 4vw, 40px)', fontWeight: 900, color: '#fff', textTransform: 'uppercase', marginBottom: 40 }}>
+        <motion.h2
+          variants={fadeInUp}
+          style={{ fontFamily: 'var(--font-black)', fontSize: 'clamp(24px, 4vw, 40px)', fontWeight: 900, color: '#fff', textTransform: 'uppercase', marginBottom: 40 }}
+        >
           Built to Perform.
-        </h2>
+        </motion.h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
           {items.map(project => (
-            <div key={project.name} style={{ background: 'var(--color-bg-card)', padding: 28 }}>
+            <motion.div
+              key={project.name}
+              variants={scaleIn}
+              whileHover={{ scale: 1.02, boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}
+              style={{ background: 'var(--color-bg-card)', padding: 28, transition: 'box-shadow 0.2s' }}
+            >
               <h3 style={{ fontFamily: 'var(--font-black)', color: '#fff', fontSize: 18, fontWeight: 900, marginBottom: 10 }}>
                 {project.name}
               </h3>
@@ -39,10 +57,10 @@ export default function Portfolio() {
               ) : (
                 <span style={{ color: '#444', fontSize: 12, fontStyle: 'italic' }}>Coming soon</span>
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   )
 }

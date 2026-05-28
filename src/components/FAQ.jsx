@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { fadeInUp, staggerContainer, viewport } from '../utils/animations'
 
 const faqs = [
   {
@@ -54,14 +56,27 @@ function FAQItem({ q, a }) {
 
 export default function FAQ() {
   return (
-    <section style={{ background: 'var(--color-bg-light)', padding: '80px 24px', borderTop: '1px solid #ddd' }}>
+    <motion.section
+      style={{ background: 'var(--color-bg-light)', padding: '80px 24px', borderTop: '1px solid #ddd' }}
+      whileInView="visible"
+      initial="hidden"
+      variants={staggerContainer}
+      viewport={viewport}
+    >
       <div className="container" style={{ maxWidth: 760 }}>
         <p className="section-label">FAQ</p>
-        <h2 style={{ fontFamily: 'var(--font-black)', fontSize: 'clamp(24px, 4vw, 40px)', fontWeight: 900, textTransform: 'uppercase', marginBottom: 40 }}>
+        <motion.h2
+          variants={fadeInUp}
+          style={{ fontFamily: 'var(--font-black)', fontSize: 'clamp(24px, 4vw, 40px)', fontWeight: 900, textTransform: 'uppercase', marginBottom: 40 }}
+        >
           Common Questions.
-        </h2>
-        {faqs.map(item => <FAQItem key={item.q} {...item} />)}
+        </motion.h2>
+        {faqs.map(item => (
+          <motion.div key={item.q} variants={fadeInUp}>
+            <FAQItem {...item} />
+          </motion.div>
+        ))}
       </div>
-    </section>
+    </motion.section>
   )
 }

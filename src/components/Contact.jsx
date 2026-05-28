@@ -1,5 +1,7 @@
 import { useState, useRef } from 'react'
 import emailjs from '@emailjs/browser'
+import { motion } from 'framer-motion'
+import { fadeInUp, staggerContainer, viewport } from '../utils/animations'
 import { getCookie } from '../utils/cookies'
 
 const inputStyle = {
@@ -36,22 +38,32 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" style={{ background: 'var(--color-bg-dark)', padding: '80px 24px', borderTop: '3px solid var(--color-accent)' }}>
+    <motion.section
+      id="contact"
+      style={{ background: 'var(--color-bg-dark)', padding: '80px 24px', borderTop: '3px solid var(--color-accent)' }}
+      whileInView="visible"
+      initial="hidden"
+      variants={staggerContainer}
+      viewport={viewport}
+    >
       <div className="container" style={{ maxWidth: 640 }}>
         <p className="section-label">Get Started</p>
-        <h2 style={{ fontFamily: 'var(--font-black)', fontSize: 'clamp(24px, 4vw, 40px)', fontWeight: 900, color: '#fff', textTransform: 'uppercase', marginBottom: 12 }}>
+        <motion.h2
+          variants={fadeInUp}
+          style={{ fontFamily: 'var(--font-black)', fontSize: 'clamp(24px, 4vw, 40px)', fontWeight: 900, color: '#fff', textTransform: 'uppercase', marginBottom: 12 }}
+        >
           Tell Me About<br />Your Business.
-        </h2>
-        <p style={{ color: 'var(--color-text-muted)', fontSize: 15, marginBottom: 40 }}>
+        </motion.h2>
+        <motion.p variants={fadeInUp} style={{ color: 'var(--color-text-muted)', fontSize: 15, marginBottom: 40 }}>
           I'll be in touch within 24 hours.
-        </p>
+        </motion.p>
 
         {status === 'sent' ? (
           <p style={{ color: 'var(--color-accent)', fontSize: 18, fontWeight: 700 }}>
             Got it — I'll reach out within 24 hours.
           </p>
         ) : (
-          <form ref={formRef} onSubmit={handleSubmit}>
+          <motion.form ref={formRef} onSubmit={handleSubmit} variants={fadeInUp}>
             <input name="from_name" placeholder="Your name" required style={inputStyle} />
             <input name="business_name" placeholder="Business name" required style={inputStyle} />
             <input name="reply_to" type="email" placeholder="Email address" required style={inputStyle} />
@@ -72,12 +84,19 @@ export default function Contact() {
                 Something went wrong. Email cpiv1976@gmail.com directly.
               </p>
             )}
-            <button type="submit" disabled={status === 'sending'} className="btn-primary" style={{ opacity: status === 'sending' ? 0.6 : 1 }}>
+            <motion.button
+              type="submit"
+              disabled={status === 'sending'}
+              className="btn-primary"
+              style={{ opacity: status === 'sending' ? 0.6 : 1 }}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+            >
               {status === 'sending' ? 'Sending...' : 'Send Message →'}
-            </button>
-          </form>
+            </motion.button>
+          </motion.form>
         )}
       </div>
-    </section>
+    </motion.section>
   )
 }

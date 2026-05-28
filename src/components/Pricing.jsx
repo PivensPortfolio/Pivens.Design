@@ -1,3 +1,6 @@
+import { motion } from 'framer-motion'
+import { fadeInUp, staggerContainer, scaleIn, viewport } from '../utils/animations'
+
 const tiers = [
   {
     name: 'The Site',
@@ -24,20 +27,33 @@ const tiers = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" style={{ background: 'var(--color-bg-light)', padding: '80px 24px', borderTop: '3px solid var(--color-accent)' }}>
+    <motion.section
+      id="pricing"
+      style={{ background: 'var(--color-bg-light)', padding: '80px 24px', borderTop: '3px solid var(--color-accent)' }}
+      whileInView="visible"
+      initial="hidden"
+      variants={staggerContainer}
+      viewport={viewport}
+    >
       <div className="container">
         <p className="section-label">Pricing</p>
-        <h2 style={{ fontFamily: 'var(--font-black)', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 900, textTransform: 'uppercase', marginBottom: 48 }}>
+        <motion.h2
+          variants={fadeInUp}
+          style={{ fontFamily: 'var(--font-black)', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 900, textTransform: 'uppercase', marginBottom: 48 }}
+        >
           Simple. Flat. No Surprises.
-        </h2>
+        </motion.h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
           {tiers.map(tier => (
-            <div
+            <motion.div
               key={tier.name}
+              variants={scaleIn}
+              whileHover={{ scale: 1.02, boxShadow: '0 8px 32px rgba(249,115,22,0.2)' }}
               style={{
                 background: tier.highlight ? 'var(--color-accent)' : 'var(--color-bg-dark)',
                 padding: 32,
                 position: 'relative',
+                transition: 'box-shadow 0.2s',
               }}
             >
               {tier.badge && (
@@ -74,13 +90,13 @@ export default function Pricing() {
               }}>
                 Get Started →
               </a>
-            </div>
+            </motion.div>
           ))}
         </div>
         <p style={{ color: 'var(--color-text-muted)', fontSize: 13, marginTop: 24 }}>
           Need just one add-on? Booking, Email, or Surveys can be added to any package for +$500 each.
         </p>
       </div>
-    </section>
+    </motion.section>
   )
 }
