@@ -64,7 +64,7 @@ const TERMS = [
   },
   {
     title: 'Governing Law',
-    body: 'This agreement shall be governed by and construed in accordance with the laws of the State of Indiana, United States. Any disputes arising under this agreement shall be resolved in the courts of Indiana.',
+    body: 'This agreement shall be governed by and construed in accordance with the laws of the State of Washington, United States. Any disputes arising under this agreement shall be resolved in the courts of Washington.',
   },
   {
     title: 'Entire Agreement',
