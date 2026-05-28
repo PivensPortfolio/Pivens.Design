@@ -29,13 +29,13 @@ export default function Pricing() {
 
         <motion.div
           variants={fadeInUp}
+          className="pricing-card"
           style={{
             display: 'flex',
             flexWrap: 'wrap',
             alignItems: 'center',
             gap: 48,
             background: 'var(--color-bg-dark)',
-            padding: '48px 48px',
           }}
         >
           {/* Price */}

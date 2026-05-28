@@ -57,7 +57,6 @@ export default function Nav() {
             className="nav-hamburger"
             onClick={() => setOpen(o => !o)}
             aria-label={open ? 'Close menu' : 'Open menu'}
-            style={{ color: '#fff', fontSize: 22, lineHeight: 1, padding: '4px 0' }}
           >
             {open ? '✕' : '☰'}
           </button>
