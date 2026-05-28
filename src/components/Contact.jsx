@@ -1,9 +1,10 @@
 import { useState, useRef } from 'react'
-import emailjs from '@emailjs/browser'
 import { motion } from 'framer-motion'
 import { fadeInUp, staggerContainer, viewport } from '../utils/animations'
 import { getCookie } from '../utils/cookies'
 import { formatPhone, emailStatus } from '../utils/format'
+
+const NTFY_TOPIC = import.meta.env.VITE_NTFY_TOPIC
 
 const inputStyle = {
   width: '100%', background: 'var(--color-bg-card)', border: 'none',
@@ -29,14 +30,38 @@ export default function Contact() {
     setStatus('sending')
 
     const variant = getCookie('pv_hero') ?? 'unknown'
+    const data = Object.fromEntries(new FormData(formRef.current))
+
+    const readinessLabel = {
+      ready: 'Ready to start',
+      soon: 'Deciding soon',
+      exploring: 'Just exploring',
+    }[data.readiness] ?? data.readiness
+
+    const body = [
+      `📱 ${data.mobile || '—'}`,
+      `🏢 ${data.business_name || '—'}`,
+      `✉️  ${data.reply_to || '—'}`,
+      `🌐 ${data.existing_url || '—'}`,
+      `⏱️  ${readinessLabel || '—'}`,
+      `🧭 Hero variant: ${variant}`,
+      '',
+      data.message,
+    ].join('\n')
 
     try {
-      await emailjs.sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        formRef.current,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-      )
+      const res = await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
+        method: 'POST',
+        headers: {
+          'Title': `New Lead: ${data.from_name}`,
+          'Priority': 'high',
+          'Tags': 'raising_hand,pivens',
+          'Content-Type': 'text/plain',
+        },
+        body,
+      })
+      if (!res.ok) throw new Error(`ntfy ${res.status}`)
+
       if (typeof window.plausible === 'function') {
         window.plausible('Lead', { props: { variant } })
       }
