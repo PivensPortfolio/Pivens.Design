@@ -25,7 +25,7 @@ export default function HeroC() {
         }}
       />
       <motion.div className="container" variants={staggerContainer} initial="hidden" animate="visible">
-        <motion.p className="section-label" variants={fadeInUp}>30 Years. One Price.</motion.p>
+        <motion.p className="section-label" variants={fadeInUp}>30 Years of Design Experience.</motion.p>
         <motion.h1
           variants={fadeInUp}
           style={{

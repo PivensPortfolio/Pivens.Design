@@ -5,21 +5,35 @@ const tiers = [
   {
     name: 'The Site',
     price: '$2,000',
-    items: ['Home', 'About', 'Services', 'Reviews', 'FAQ', 'Contact'],
+    items: [
+      'Complete one-page website',
+      'Core sections included (home, about, services, etc.)',
+      'Mobile-ready',
+      'Contact form',
+    ],
     highlight: false,
     badge: null,
   },
   {
-    name: 'The Site + Booking',
+    name: 'The Site + Add-On',
     price: '$2,500',
-    items: ['Everything in The Site', 'Online booking integration'],
+    items: [
+      'Everything in The Site',
+      'One feature add-on of your choice',
+      'Booking, email list, or custom form',
+    ],
     highlight: true,
     badge: 'POPULAR',
   },
   {
     name: 'The Full Kit',
     price: '$3,500',
-    items: ['Everything in The Site', 'Booking', 'Email list', 'Survey / feedback form'],
+    items: [
+      'Everything in The Site',
+      'Built around your specific needs',
+      'Custom integrations and features',
+      'Fully tailored to your business',
+    ],
     highlight: false,
     badge: null,
   },
@@ -94,7 +108,7 @@ export default function Pricing() {
           ))}
         </div>
         <p style={{ color: 'var(--color-text-muted)', fontSize: 13, marginTop: 24 }}>
-          Need just one add-on? Booking, Email, or Surveys can be added to any package for +$500 each.
+          Want to add just one feature? Booking, email list, or a custom form can be added to The Site for +$500.
         </p>
       </div>
     </motion.section>
