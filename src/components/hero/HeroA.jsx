@@ -35,11 +35,15 @@ export default function HeroA() {
             color: '#fff',
             lineHeight: 1.05,
             textTransform: 'uppercase',
-            marginBottom: 16,
+            marginBottom: 20,
           }}
         >
           Your Site.<br />Done in Days.
         </motion.h1>
+        <motion.div
+          variants={fadeInUp}
+          style={{ height: 2, background: 'var(--color-accent)', marginBottom: 24 }}
+        />
         <motion.p variants={fadeInUp} style={{ color: 'var(--color-accent)', fontFamily: 'var(--font-black)', fontSize: 20, fontWeight: 900, marginBottom: 8 }}>
           $2,000 flat. No agency BS.
         </motion.p>

@@ -35,12 +35,16 @@ export default function HeroC() {
             color: '#fff',
             lineHeight: 1.05,
             textTransform: 'uppercase',
-            marginBottom: 16,
+            marginBottom: 20,
           }}
         >
           Professional<br />Websites<br />
           <span style={{ color: 'var(--color-accent)' }}>Done Fast.</span>
         </motion.h1>
+        <motion.div
+          variants={fadeInUp}
+          style={{ height: 2, background: 'var(--color-accent)', marginBottom: 24 }}
+        />
         <motion.p variants={fadeInUp} style={{ color: 'var(--color-text-muted)', fontSize: 15, marginBottom: 40 }}>
           From $2,000. No fluff. No months of back-and-forth.
         </motion.p>

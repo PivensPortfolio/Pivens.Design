@@ -35,12 +35,16 @@ export default function HeroB() {
             color: 'var(--color-text-primary)',
             lineHeight: 1.05,
             textTransform: 'uppercase',
-            marginBottom: 16,
+            marginBottom: 20,
           }}
         >
           Your Competitors<br />Have a Website.<br />
           <span style={{ color: 'var(--color-accent)' }}>You Don't.</span>
         </motion.h1>
+        <motion.div
+          variants={fadeInUp}
+          style={{ height: 2, background: 'var(--color-accent)', marginBottom: 24 }}
+        />
         <motion.p variants={fadeInUp} style={{ color: '#555', fontSize: 16, marginBottom: 40 }}>
           Fix that in days, not months. Starting at $2,000.
         </motion.p>
