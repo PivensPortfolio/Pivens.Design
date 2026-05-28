@@ -150,22 +150,6 @@ export default function InvoicePage() {
   }
 
   // ── Invoice actions ───────────────────────────────────────────────────────
-  async function sendInvoice(id) {
-    setActionLoading(id + '_send')
-    try {
-      const res = await fetch(`${API}/invoices/${id}/send`, {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      if (!res.ok) throw new Error()
-      await loadInvoices()
-    } catch {
-      alert('Failed to send invoice.')
-    } finally {
-      setActionLoading(null)
-    }
-  }
-
   async function markPaid(id) {
     setActionLoading(id + '_paid')
     try {
@@ -493,11 +477,6 @@ export default function InvoicePage() {
                   {/* Status */}
                   <div>
                     <StatusBadge status={inv.status} />
-                    {inv.sent_at && (
-                      <div style={{ fontSize: 11, color: '#aaa', marginTop: 4 }}>
-                        Sent {new Date(inv.sent_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                      </div>
-                    )}
                     {inv.paid_at && (
                       <div style={{ fontSize: 11, color: '#16a34a', marginTop: 4 }}>
                         Paid {new Date(inv.paid_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
@@ -520,19 +499,6 @@ export default function InvoicePage() {
                       View
                     </a>
                     {inv.status !== 'paid' && (
-                      <button
-                        onClick={() => sendInvoice(inv.id)}
-                        disabled={actionLoading === inv.id + '_send'}
-                        style={{
-                          background: '#f97316', color: '#fff', border: 'none',
-                          fontSize: 12, fontWeight: 700, letterSpacing: 0.5, textTransform: 'uppercase',
-                          padding: '7px 14px', cursor: 'pointer', whiteSpace: 'nowrap',
-                        }}
-                      >
-                        {actionLoading === inv.id + '_send' ? '...' : inv.status === 'sent' ? 'Resend' : 'Send'}
-                      </button>
-                    )}
-                    {inv.status === 'sent' && (
                       <button
                         onClick={() => markPaid(inv.id)}
                         disabled={actionLoading === inv.id + '_paid'}
