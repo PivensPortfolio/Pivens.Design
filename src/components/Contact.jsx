@@ -3,7 +3,7 @@ import emailjs from '@emailjs/browser'
 import { motion } from 'framer-motion'
 import { fadeInUp, staggerContainer, viewport } from '../utils/animations'
 import { getCookie } from '../utils/cookies'
-import { formatPhone } from '../utils/format'
+import { formatPhone, emailStatus } from '../utils/format'
 
 const inputStyle = {
   width: '100%', background: 'var(--color-bg-card)', border: 'none',
@@ -22,6 +22,7 @@ export default function Contact() {
   const [status, setStatus] = useState('idle') // idle | sending | sent | error
   const [readiness, setReadiness] = useState('')
   const [mobile, setMobile] = useState('')
+  const [email, setEmail] = useState('')
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -41,6 +42,7 @@ export default function Contact() {
       }
       setStatus('sent')
       setMobile('')
+      setEmail('')
       formRef.current.reset()
     } catch {
       setStatus('error')
@@ -85,7 +87,19 @@ export default function Contact() {
               onChange={e => setMobile(formatPhone(e.target.value))}
               style={inputStyle}
             />
-            <input name="reply_to" type="email" placeholder="Email address (optional)" style={inputStyle} />
+            <input
+              name="reply_to"
+              type="email"
+              placeholder="Email address (optional)"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              style={{
+                ...inputStyle,
+                outline: emailStatus(email) === 'valid' ? '2px solid #22c55e'
+                  : emailStatus(email) === 'invalid' ? '2px solid #f87171'
+                  : 'none',
+              }}
+            />
             <input
               name="existing_url"
               placeholder="Existing website URL (optional)"

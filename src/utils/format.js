@@ -8,3 +8,11 @@ export function formatPhone(raw) {
   if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`
 }
+
+/**
+ * Returns 'valid', 'invalid', or 'empty' for an email string.
+ */
+export function emailStatus(value) {
+  if (!value) return 'empty'
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? 'valid' : 'invalid'
+}

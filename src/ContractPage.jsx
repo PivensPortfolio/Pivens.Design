@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import emailjs from '@emailjs/browser'
-import { formatPhone } from './utils/format'
+import { formatPhone, emailStatus } from './utils/format'
 
 const TERMS = [
   {
@@ -183,7 +183,12 @@ export default function ContractPage() {
             required
             value={form.email}
             onChange={handleChange}
-            style={inputStyle}
+            style={{
+              ...inputStyle,
+              outline: emailStatus(form.email) === 'valid' ? '2px solid #22c55e'
+                : emailStatus(form.email) === 'invalid' ? '2px solid #f87171'
+                : 'none',
+            }}
           />
           <input
             name="mobile"
