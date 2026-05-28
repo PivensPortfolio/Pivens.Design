@@ -33,6 +33,14 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   color: var(--color-accent);
   margin-bottom: 16px;
 }
+/* Nav responsive */
+.nav-links { display: flex; gap: 28px; }
+.nav-hamburger { display: none; }
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: block; }
+}
+
 .btn-primary {
   display: inline-block;
   background: var(--color-accent);
