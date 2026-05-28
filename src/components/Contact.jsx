@@ -10,9 +10,16 @@ const inputStyle = {
   marginBottom: 12, outline: 'none',
 }
 
+const readinessOptions = [
+  { value: 'ready', label: "Ready to start", sub: "Let's go" },
+  { value: 'soon', label: "Deciding soon", sub: "Within a month" },
+  { value: 'exploring', label: "Just exploring", sub: "No rush" },
+]
+
 export default function Contact() {
   const formRef = useRef()
   const [status, setStatus] = useState('idle') // idle | sending | sent | error
+  const [readiness, setReadiness] = useState('')
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -73,6 +80,39 @@ export default function Contact() {
               placeholder="Existing website URL (optional)"
               style={inputStyle}
             />
+
+            {/* Readiness selector */}
+            <p style={{ color: 'var(--color-text-muted)', fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase', marginBottom: 10, marginTop: 4 }}>
+              How ready are you to get started?
+            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, marginBottom: 16 }}>
+              {readinessOptions.map(opt => {
+                const selected = readiness === opt.value
+                return (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => setReadiness(opt.value)}
+                    style={{
+                      background: selected ? 'var(--color-accent)' : 'var(--color-bg-card)',
+                      border: selected ? '2px solid var(--color-accent)' : '2px solid transparent',
+                      color: selected ? '#fff' : 'var(--color-text-muted)',
+                      padding: '12px 8px',
+                      cursor: 'pointer',
+                      textAlign: 'center',
+                      transition: 'all 0.15s',
+                      fontFamily: 'var(--font-body)',
+                    }}
+                  >
+                    <div style={{ fontWeight: 700, fontSize: 13 }}>{opt.label}</div>
+                    <div style={{ fontSize: 11, opacity: 0.75, marginTop: 2 }}>{opt.sub}</div>
+                  </button>
+                )
+              })}
+            </div>
+            {/* Hidden field so EmailJS picks up the value */}
+            <input type="hidden" name="readiness" value={readiness} />
+
             <textarea
               name="message"
               placeholder="Tell me a bit about your business and what you need"
