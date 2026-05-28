@@ -36,9 +36,26 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* Nav responsive */
 .nav-links { display: flex; gap: 28px; }
 .nav-hamburger { display: none; }
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .nav-links { display: none; }
   .nav-hamburger { display: block; }
+}
+
+/* Pricing divider — vertical on desktop, horizontal on mobile */
+.pricing-divider {
+  width: 1px;
+  align-self: stretch;
+  background: rgba(255,255,255,0.1);
+  flex-shrink: 0;
+  min-height: 80px;
+}
+@media (max-width: 640px) {
+  .pricing-divider {
+    width: 100%;
+    height: 1px;
+    min-height: unset;
+    align-self: auto;
+  }
 }
 
 .btn-primary {

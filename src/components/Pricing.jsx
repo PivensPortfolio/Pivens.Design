@@ -49,8 +49,8 @@ export default function Pricing() {
             <p style={{ color: 'var(--color-text-muted)', fontSize: 14, marginTop: 4 }}>flat. no retainer. no surprises.</p>
           </div>
 
-          {/* Divider */}
-          <div style={{ width: 1, alignSelf: 'stretch', background: 'rgba(255,255,255,0.1)', flexShrink: 0, minHeight: 80 }} />
+          {/* Divider — vertical on desktop, horizontal on mobile via CSS */}
+          <div className="pricing-divider" />
 
           {/* Included list */}
           <div style={{ flex: 1, minWidth: 200 }}>
