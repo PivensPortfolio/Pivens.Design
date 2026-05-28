@@ -55,18 +55,19 @@ export default function Contact() {
           Tell Me About<br />Your Business.
         </motion.h2>
         <motion.p variants={fadeInUp} style={{ color: 'var(--color-text-muted)', fontSize: 15, marginBottom: 40 }}>
-          I'll be in touch within 24 hours.
+          I'll text you within 24 hours.
         </motion.p>
 
         {status === 'sent' ? (
           <p style={{ color: 'var(--color-accent)', fontSize: 18, fontWeight: 700 }}>
-            Got it — I'll reach out within 24 hours.
+            Got it — expect a text from me within 24 hours.
           </p>
         ) : (
           <motion.form ref={formRef} onSubmit={handleSubmit} variants={fadeInUp}>
             <input name="from_name" placeholder="Your name" required style={inputStyle} />
             <input name="business_name" placeholder="Business name" required style={inputStyle} />
-            <input name="reply_to" type="email" placeholder="Email address" required style={inputStyle} />
+            <input name="mobile" type="tel" placeholder="Mobile number" required style={inputStyle} />
+            <input name="reply_to" type="email" placeholder="Email address (optional)" style={inputStyle} />
             <input
               name="existing_url"
               placeholder="Existing website URL (optional)"
@@ -77,11 +78,14 @@ export default function Contact() {
               placeholder="Tell me a bit about your business and what you need"
               rows={5}
               required
-              style={{ ...inputStyle, resize: 'vertical', marginBottom: 20 }}
+              style={{ ...inputStyle, resize: 'vertical', marginBottom: 16 }}
             />
+            <p style={{ color: 'var(--color-text-muted)', fontSize: 12, lineHeight: 1.6, marginBottom: 20 }}>
+              By submitting this form you agree to be contacted by text message. Message and data rates may apply. Reply STOP at any time to opt out.
+            </p>
             {status === 'error' && (
               <p style={{ color: '#f87171', fontSize: 14, marginBottom: 12 }}>
-                Something went wrong. Email cpiv1976@gmail.com directly.
+                Something went wrong. Text (555) 555-5555 directly.
               </p>
             )}
             <motion.button
