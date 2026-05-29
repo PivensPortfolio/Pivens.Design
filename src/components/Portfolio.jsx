@@ -12,6 +12,11 @@ const projects = [
     description: 'Professional cleaning service for Vancouver & Portland — booking-focused site with services, reviews, and FAQ.',
     url: 'https://www.kandiecleaning.com',
   },
+  {
+    name: "Erwin's Quality Plants",
+    description: 'Family-grown plant nursery in Eugene, OR since 1981 — gallery, seasonal blooms, events, and location.',
+    url: 'https://erwins-quality-plants.vercel.app',
+  },
 ]
 
 export default function Portfolio() {
