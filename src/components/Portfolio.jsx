@@ -7,7 +7,11 @@ const projects = [
     description: 'CDL training platform — student app, admin console, and marketing site.',
     url: 'https://freightpathacademy.com',
   },
-  // Add more projects here as available
+  {
+    name: 'Kandi & Co. Cleaning',
+    description: 'Professional cleaning service for Vancouver & Portland — booking-focused site with services, reviews, and FAQ.',
+    url: 'https://www.kandiecleaning.com',
+  },
 ]
 
 export default function Portfolio() {
