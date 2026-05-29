@@ -289,7 +289,7 @@ export default function ContractPage() {
 
             {status === 'error' && (
               <p style={{ color: '#dc2626', fontSize: 14, marginBottom: 12 }}>
-                Something went wrong submitting. Text (555) 555-5555 directly.
+                Something went wrong submitting. Please try again.
               </p>
             )}
 

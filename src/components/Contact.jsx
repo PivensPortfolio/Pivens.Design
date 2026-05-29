@@ -175,7 +175,7 @@ export default function Contact() {
             </p>
             {status === 'error' && (
               <p style={{ color: '#f87171', fontSize: 14, marginBottom: 12 }}>
-                Something went wrong. Text (555) 555-5555 directly.
+                Something went wrong. Please try again or reach out directly.
               </p>
             )}
             <motion.button
