@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { fadeInUp, staggerContainer, viewport } from '../utils/animations'
 
 const included = [
-  'Complete one-page website',
+  'Full website — every section you need',
   'Core sections (home, about, services, etc.)',
   'Mobile-ready',
   'Contact form',

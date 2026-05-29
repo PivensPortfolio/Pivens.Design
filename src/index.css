@@ -55,9 +55,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 /* Mobile — reduce all horizontal padding by ~75% (24px -> 6px) */
 @media (max-width: 640px) {
-  .container { padding-left: 6px !important; padding-right: 6px !important; }
-  section  { padding-left: 6px !important; padding-right: 6px !important; }
-  nav      { padding-left: 6px !important; padding-right: 6px !important; }
+  .container { padding-left: 11px !important; padding-right: 11px !important; }
+  section  { padding-left: 11px !important; padding-right: 11px !important; }
+  nav      { padding-left: 11px !important; padding-right: 11px !important; }
   .pricing-card { padding: 28px 12px !important; }
   .pricing-divider {
     width: 100%;
