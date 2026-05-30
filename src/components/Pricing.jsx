@@ -44,9 +44,9 @@ export default function Pricing() {
               The Site
             </p>
             <p style={{ fontFamily: 'var(--font-black)', fontSize: 'clamp(64px, 10vw, 96px)', fontWeight: 900, color: '#fff', lineHeight: 1, marginBottom: 0 }}>
-              $2,000
+              $499
             </p>
-            <p style={{ color: 'var(--color-text-muted)', fontSize: 14, marginTop: 4 }}>flat. no retainer. no surprises.</p>
+            <p style={{ color: 'var(--color-text-muted)', fontSize: 14, marginTop: 4 }}>paid upfront. add-ons on delivery.</p>
           </div>
 
           {/* Divider — vertical on desktop, horizontal on mobile via CSS */}
@@ -89,7 +89,7 @@ export default function Pricing() {
               Get Started →
             </motion.a>
             <p style={{ color: 'var(--color-text-muted)', fontSize: 12, marginTop: 12, textAlign: 'center' }}>
-              Add-ons from +$500 each
+              Add-ons from +$249 each
             </p>
           </div>
         </motion.div>

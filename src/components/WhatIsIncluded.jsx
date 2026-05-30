@@ -56,7 +56,7 @@ export default function WhatIsIncluded() {
             Need More? Add It On.
           </h3>
           <p style={{ color: '#666', fontSize: 14, marginBottom: 32 }}>
-            Any of the following can be added to any package for <strong>+$500 each</strong>.
+            Any of the following can be added. Frontend features from <strong>+$249</strong>. Backend features (galleries, events, booking, etc.) from <strong>+$499</strong>.
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 10 }}>
             {addOns.map(item => (

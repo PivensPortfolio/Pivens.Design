@@ -46,7 +46,7 @@ export default function HeroC() {
           style={{ height: 2, background: 'var(--color-accent)', marginBottom: 24 }}
         />
         <motion.p variants={fadeInUp} style={{ color: 'var(--color-text-muted)', fontSize: 15, marginBottom: 40 }}>
-          From $2,000. No fluff. No months of back-and-forth.
+          From $499. No fluff. No months of back-and-forth.
         </motion.p>
         <motion.a
           href="#pricing"

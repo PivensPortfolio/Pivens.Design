@@ -45,7 +45,7 @@ export default function HeroA() {
           style={{ height: 2, background: 'var(--color-accent)', marginBottom: 24 }}
         />
         <motion.p variants={fadeInUp} style={{ color: 'var(--color-accent)', fontFamily: 'var(--font-black)', fontSize: 20, fontWeight: 900, marginBottom: 8 }}>
-          $2,000 flat. No agency BS.
+          $499 flat. No agency BS.
         </motion.p>
         <motion.p variants={fadeInUp} style={{ color: 'var(--color-text-muted)', fontSize: 14, marginBottom: 40 }}>
           One-page site. Everything included.

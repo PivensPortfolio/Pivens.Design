@@ -46,7 +46,7 @@ export default function HeroB() {
           style={{ height: 2, background: 'var(--color-accent)', marginBottom: 24 }}
         />
         <motion.p variants={fadeInUp} style={{ color: '#555', fontSize: 16, marginBottom: 40 }}>
-          Fix that in days, not months. Starting at $2,000.
+          Fix that in days, not months. Starting at $499.
         </motion.p>
         <motion.a
           href="#pricing"
