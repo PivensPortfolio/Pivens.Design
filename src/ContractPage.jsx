@@ -9,15 +9,15 @@ const TERMS = [
   },
   {
     title: 'Project Price',
-    body: 'The base price for a single-page website is $2,000 (USD), paid flat. Add-on features (booking integration, email list, blog, gallery, etc.) are $500 each and must be agreed upon in writing before work begins. All prices are in U.S. dollars.',
+    body: 'The base price for a single-page website is $499 (USD). Add-ons are priced as follows: additional pages or sections are $249 each; features that do not require a backend (galleries, contact forms, embedded calendars, email opt-ins, etc.) are $249 each; features that require a backend (custom databases, user accounts, payment processing, booking systems with data storage, etc.) are $499 each. All add-ons must be agreed upon in writing before work begins. All prices are in U.S. dollars.',
   },
   {
     title: 'Deposit & Payment Schedule',
-    body: 'A non-refundable deposit of 50% ($1,000) is due before any design or development work begins. The remaining 50% balance is due in full before the website goes live. Work will not commence without a paid deposit, and the site will not be launched until the full balance is received.',
+    body: 'The base project fee of $499 is due in full before any design or development work begins and is non-refundable. Any agreed add-on features (additional pages, sections, or backend integrations) are billed separately and are due in full before the website goes live. Work will not commence without payment of the base fee, and the site will not be launched until all outstanding balances are paid.',
   },
   {
-    title: 'No Refund on Deposit',
-    body: 'The deposit is strictly non-refundable under any circumstances, including but not limited to: client change of mind, business closure, failure to provide content, or project cancellation initiated by the client. If the client terminates the project after work has begun, the designer retains the deposit and is owed payment for all work completed up to the termination date at a rate of $50/hour.',
+    title: 'No Refund on Base Fee',
+    body: 'The $499 base fee is strictly non-refundable under any circumstances, including but not limited to: client change of mind, business closure, failure to provide content, or project cancellation initiated by the client. If the client terminates the project after work has begun, the designer retains the base fee in full and is owed payment for all work completed up to the termination date at a rate of $50/hour.',
   },
   {
     title: 'Revisions',
@@ -259,7 +259,7 @@ export default function ContractPage() {
                 style={{ marginTop: 3, accentColor: '#f97316', width: 18, height: 18, flexShrink: 0 }}
               />
               <span style={{ fontSize: 14, color: '#333', lineHeight: 1.6 }}>
-                I have read and agree to all of the terms and conditions above. I understand that my deposit is non-refundable, that revisions beyond the first two rounds are billed at $50/hour, and that this constitutes a legally binding agreement.
+                I have read and agree to all of the terms and conditions above. I understand that the $499 base fee is non-refundable, that add-on costs are due before launch, that revisions beyond the first two rounds are billed at $50/hour, and that this constitutes a legally binding agreement.
               </span>
             </label>
 
