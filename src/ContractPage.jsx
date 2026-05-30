@@ -9,7 +9,7 @@ const TERMS = [
   },
   {
     title: 'Project Price',
-    body: 'The base price for a single-page website is $499 (USD). Add-ons are priced as follows: additional pages or sections are $249 each; features that do not require a backend (galleries, contact forms, embedded calendars, email opt-ins, etc.) are $249 each; features that require a backend (custom databases, user accounts, payment processing, booking systems with data storage, etc.) are $499 each. All add-ons must be agreed upon in writing before work begins. All prices are in U.S. dollars.',
+    body: 'The base price for a single-page website is $499 (USD). Add-ons are priced as follows: additional pages or sections are $249 each; features that do not require a backend (contact forms, embedded calendars, email opt-ins, etc.) are $249 each; features that require a backend (galleries, events, custom databases, user accounts, payment processing, booking systems with data storage, etc.) are $499 each. All add-ons must be agreed upon in writing before work begins. All prices are in U.S. dollars.',
   },
   {
     title: 'Deposit & Payment Schedule',
