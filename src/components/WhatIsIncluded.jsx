@@ -6,10 +6,8 @@ const included = ['Home section', 'About section', 'Services section', 'Reviews 
 const basicAddOns = [
   'Email list signup',
   'Customer feedback form',
-  'Live chat widget',
   'Menu or price list',
   'Team / staff directory',
-  'Job listings / careers section',
   'Social media feed (Instagram)',
   'Google Reviews embed',
   'Pop-up lead capture',
@@ -18,10 +16,12 @@ const basicAddOns = [
 
 const advancedAddOns = [
   'Online booking / appointment scheduling',
+  'Live chat widget',
   'Blog (up to 3 starter posts)',
   'Photo gallery',
   'Event calendar',
   'Before & after gallery',
+  'Job listings / careers section',
   'Client intake / onboarding form',
 ]
 
