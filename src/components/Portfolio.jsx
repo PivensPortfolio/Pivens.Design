@@ -27,7 +27,7 @@ export default function Portfolio() {
   return (
     <motion.section
       id="work"
-      style={{ background: 'var(--color-bg-dark)', padding: '80px 24px' }}
+      style={{ background: 'var(--color-bg-dark)', padding: '40px 24px' }}
       whileInView="visible"
       initial="hidden"
       variants={staggerContainer}

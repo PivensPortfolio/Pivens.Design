@@ -3,7 +3,7 @@ import { fadeInUp, staggerContainer, viewport } from '../../utils/animations'
 
 export default function HeroB() {
   return (
-    <section style={{ background: 'var(--color-bg-light)', borderTop: '4px solid var(--color-accent)', padding: '100px 24px', position: 'relative', overflow: 'hidden' }}>
+    <section style={{ background: 'var(--color-bg-light)', borderTop: '4px solid var(--color-accent)', padding: '50px 24px', position: 'relative', overflow: 'hidden' }}>
       {/* Animated gradient orb */}
       <motion.div
         animate={{

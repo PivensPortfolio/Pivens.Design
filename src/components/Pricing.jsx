@@ -12,7 +12,7 @@ export default function Pricing() {
   return (
     <motion.section
       id="pricing"
-      style={{ background: 'var(--color-bg-light)', padding: '80px 24px', borderTop: '3px solid var(--color-accent)' }}
+      style={{ background: 'var(--color-bg-light)', padding: '40px 24px', borderTop: '3px solid var(--color-accent)' }}
       whileInView="visible"
       initial="hidden"
       variants={staggerContainer}

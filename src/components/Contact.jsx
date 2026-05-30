@@ -77,7 +77,7 @@ export default function Contact() {
   return (
     <motion.section
       id="contact"
-      style={{ background: 'var(--color-bg-dark)', padding: '80px 24px', borderTop: '3px solid var(--color-accent)' }}
+      style={{ background: 'var(--color-bg-dark)', padding: '40px 24px', borderTop: '3px solid var(--color-accent)' }}
       whileInView="visible"
       initial="hidden"
       variants={staggerContainer}

@@ -4,7 +4,7 @@ import { fadeInUp, staggerContainer, viewport } from '../utils/animations'
 export default function About() {
   return (
     <motion.section
-      style={{ background: 'var(--color-bg-light)', padding: '80px 24px' }}
+      style={{ background: 'var(--color-bg-light)', padding: '40px 24px' }}
       whileInView="visible"
       initial="hidden"
       variants={staggerContainer}

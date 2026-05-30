@@ -57,7 +57,7 @@ function FAQItem({ q, a }) {
 export default function FAQ() {
   return (
     <motion.section
-      style={{ background: 'var(--color-bg-light)', padding: '80px 24px', borderTop: '1px solid #ddd' }}
+      style={{ background: 'var(--color-bg-light)', padding: '40px 24px', borderTop: '1px solid #ddd' }}
       whileInView="visible"
       initial="hidden"
       variants={staggerContainer}

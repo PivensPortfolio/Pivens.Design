@@ -28,7 +28,7 @@ const advancedAddOns = [
 export default function WhatIsIncluded() {
   return (
     <motion.section
-      style={{ background: '#fff', padding: '80px 24px', borderTop: '1px solid var(--color-border)' }}
+      style={{ background: '#fff', padding: '40px 24px', borderTop: '1px solid var(--color-border)' }}
       whileInView="visible"
       initial="hidden"
       variants={staggerContainer}
