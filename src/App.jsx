@@ -241,8 +241,8 @@ function Hero() {
     <section ref={ref} className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-24 pb-16">
       {/* Ambient glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-accent/5 blur-[120px]" />
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-accent/3 blur-[100px]" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[120px]" style={{ background: 'rgba(181,255,71,0.07)' }} />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full blur-[100px]" style={{ background: 'rgba(181,255,71,0.04)' }} />
       </div>
 
       {/* Grid overlay */}
@@ -269,7 +269,7 @@ function Hero() {
           {words.map((word, i) => (
             <motion.span
               key={i}
-              className="inline-block mr-[0.18em]"
+              style={{ display: 'inline-block', marginRight: '0.18em' }}
               initial={{ opacity: 0, y: 60, skewY: 4 }}
               animate={{ opacity: 1, y: 0, skewY: 0 }}
               transition={{ duration: 0.75, delay: 0.3 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
