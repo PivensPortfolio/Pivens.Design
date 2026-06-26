@@ -234,7 +234,6 @@ function Hero() {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '18%'])
-  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
 
   const words = ['Your', 'Competitors', 'Have', 'a Website.', 'You', "Don't."]
 
@@ -255,7 +254,7 @@ function Hero() {
         }}
       />
 
-      <motion.div className="relative max-w-7xl mx-auto px-6 w-full" style={{ y, opacity }}>
+      <motion.div className="relative max-w-7xl mx-auto px-6 w-full" style={{ y }}>
         <motion.div
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-accent/30 text-accent text-xs font-semibold tracking-widest uppercase mb-10"
           initial={{ opacity: 0, scale: 0.9 }}
