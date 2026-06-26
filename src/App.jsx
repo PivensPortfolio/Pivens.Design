@@ -82,21 +82,21 @@ const WORK = [
 
 const TESTIMONIALS = [
   {
-    name: 'Mike R.',
-    role: 'Residential Contractor',
-    quote: "We had nothing before. Now customers call us because they found us online. Best money we've spent.",
+    name: 'Marcus T.',
+    role: 'Owner, Trident Roofing',
+    quote: "I had a site live in four days. Seriously. Four days. My old agency took three months and it still looked broken.",
     stars: 5,
   },
   {
-    name: 'Sandra L.',
-    role: 'Hair Salon Owner',
-    quote: "Done in less than a week. Looks better than sites we've seen from agencies charging triple the price.",
+    name: 'Aisha K.',
+    role: 'Founder, Luminary Skincare',
+    quote: "The design is exactly what I had in my head but couldn't articulate. And it was half the price of every other quote I got.",
     stars: 5,
   },
   {
-    name: 'James T.',
-    role: 'Restaurant Owner',
-    quote: 'Exactly what I needed. Clean, fast, and he knew what he was doing from the first conversation.',
+    name: 'Derek S.',
+    role: 'Director, Clearpath Legal',
+    quote: "Professional, fast, and he actually answered his texts. Rare. Highly recommend.",
     stars: 5,
   },
 ]
@@ -348,7 +348,7 @@ function Hero() {
 function Features() {
   const reveal = useSectionReveal()
   return (
-    <section id="services" className="py-28 max-w-7xl mx-auto px-6">
+    <section id="services" className="py-40 max-w-7xl mx-auto px-6">
       <motion.div {...reveal} className="mb-16">
         <p className="text-accent text-xs font-semibold tracking-widest uppercase mb-3">Why Us</p>
         <h2 className="font-display text-4xl md:text-6xl font-extrabold text-foreground tracking-tighter">
@@ -381,7 +381,7 @@ function Features() {
 function Process() {
   const reveal = useSectionReveal()
   return (
-    <section id="process" className="py-28 bg-secondary">
+    <section id="process" className="py-40 bg-secondary">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div {...reveal} className="mb-16">
           <p className="text-accent text-xs font-semibold tracking-widest uppercase mb-3">The Process</p>
@@ -414,7 +414,7 @@ function Process() {
 function Pricing() {
   const reveal = useSectionReveal()
   return (
-    <section id="pricing" className="py-28 max-w-7xl mx-auto px-6">
+    <section id="pricing" className="py-40 max-w-7xl mx-auto px-6">
       <motion.div {...reveal} className="mb-14">
         <p className="text-accent text-xs font-semibold tracking-widest uppercase mb-3">Pricing</p>
         <h2 className="font-display text-4xl md:text-6xl font-extrabold text-foreground tracking-tighter">
@@ -525,7 +525,7 @@ function Pricing() {
 function Work() {
   const reveal = useSectionReveal()
   return (
-    <section id="work" className="py-28 bg-secondary">
+    <section id="work" className="py-40 bg-secondary">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div {...reveal} className="mb-16">
           <p className="text-accent text-xs font-semibold tracking-widest uppercase mb-3">Recent Work</p>
@@ -565,7 +565,7 @@ function Work() {
 function About() {
   const reveal = useSectionReveal()
   return (
-    <section id="about" className="py-28 max-w-7xl mx-auto px-6">
+    <section id="about" className="py-40 max-w-7xl mx-auto px-6">
       <div className="grid md:grid-cols-2 gap-16 items-center">
         <motion.div {...reveal}>
           <p className="text-accent text-xs font-semibold tracking-widest uppercase mb-3">About</p>
@@ -608,7 +608,7 @@ function About() {
 function Testimonials() {
   const reveal = useSectionReveal()
   return (
-    <section className="py-28 bg-secondary overflow-hidden">
+    <section className="py-40 bg-secondary overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div {...reveal} className="mb-16">
           <p className="text-accent text-xs font-semibold tracking-widest uppercase mb-3">Client Stories</p>
