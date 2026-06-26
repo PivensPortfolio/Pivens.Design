@@ -348,7 +348,7 @@ function Hero() {
 function Features() {
   const reveal = useSectionReveal()
   return (
-    <section id="services" className="py-40 max-w-7xl mx-auto px-6">
+    <section id="services" className="py-28 max-w-7xl mx-auto px-6">
       <motion.div {...reveal} className="mb-16">
         <p className="text-accent text-xs font-semibold tracking-widest uppercase mb-3">Why Us</p>
         <h2 className="font-display text-4xl md:text-6xl font-extrabold text-foreground tracking-tighter">
@@ -381,7 +381,7 @@ function Features() {
 function Process() {
   const reveal = useSectionReveal()
   return (
-    <section id="process" className="py-40 bg-secondary">
+    <section id="process" className="py-28 bg-secondary">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div {...reveal} className="mb-16">
           <p className="text-accent text-xs font-semibold tracking-widest uppercase mb-3">The Process</p>
@@ -414,7 +414,7 @@ function Process() {
 function Pricing() {
   const reveal = useSectionReveal()
   return (
-    <section id="pricing" className="py-40 max-w-7xl mx-auto px-6">
+    <section id="pricing" className="py-28 max-w-7xl mx-auto px-6">
       <motion.div {...reveal} className="mb-14">
         <p className="text-accent text-xs font-semibold tracking-widest uppercase mb-3">Pricing</p>
         <h2 className="font-display text-4xl md:text-6xl font-extrabold text-foreground tracking-tighter">
@@ -525,7 +525,7 @@ function Pricing() {
 function Work() {
   const reveal = useSectionReveal()
   return (
-    <section id="work" className="py-40 bg-secondary">
+    <section id="work" className="py-28 bg-secondary">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div {...reveal} className="mb-16">
           <p className="text-accent text-xs font-semibold tracking-widest uppercase mb-3">Recent Work</p>
@@ -565,7 +565,7 @@ function Work() {
 function About() {
   const reveal = useSectionReveal()
   return (
-    <section id="about" className="py-40 max-w-7xl mx-auto px-6">
+    <section id="about" className="py-28 max-w-7xl mx-auto px-6">
       <div className="grid md:grid-cols-2 gap-16 items-center">
         <motion.div {...reveal}>
           <p className="text-accent text-xs font-semibold tracking-widest uppercase mb-3">About</p>
@@ -608,7 +608,7 @@ function About() {
 function Testimonials() {
   const reveal = useSectionReveal()
   return (
-    <section className="py-40 bg-secondary overflow-hidden">
+    <section className="py-28 bg-secondary overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div {...reveal} className="mb-16">
           <p className="text-accent text-xs font-semibold tracking-widest uppercase mb-3">Client Stories</p>
