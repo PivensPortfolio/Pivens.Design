@@ -961,8 +961,8 @@ function ContactWizard() {
               <span className="text-xl font-bold text-black">{String(step).padStart(2, '0')}</span>
               <span className="text-sm text-black/50">/ 06</span>
             </div>
-            <button onClick={advance} className="text-base font-semibold underline text-black hover:opacity-60 transition-opacity font-display">
-              Skip for now
+            <button onClick={() => setOpen(false)} className="text-base font-semibold underline text-black hover:opacity-60 transition-opacity font-display">
+              Cancel
             </button>
           </div>
 
