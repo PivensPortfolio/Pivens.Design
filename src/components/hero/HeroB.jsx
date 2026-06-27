@@ -38,8 +38,8 @@ export default function HeroB() {
             marginBottom: 20,
           }}
         >
-          Your Competitors<br />Have a Website.<br />
-          <span style={{ color: 'var(--color-accent)', whiteSpace: 'nowrap' }}>You Don't.</span>
+          Look Like the Business<br />
+          <span style={{ color: 'var(--color-accent)', whiteSpace: 'nowrap' }}>You Actually Are.</span>
         </motion.h1>
         <motion.div
           variants={fadeInUp}

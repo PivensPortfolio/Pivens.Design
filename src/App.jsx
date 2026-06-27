@@ -236,7 +236,7 @@ function Hero() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '18%'])
 
-  const words = ['Your', 'Competitors', 'Have', 'a Website.', 'You', "Don't."]
+  const words = ['Look', 'Like', 'the', 'Business', 'You', 'Actually', 'Are.']
 
   return (
     <section ref={ref} className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-24 pb-16">
@@ -275,7 +275,7 @@ function Hero() {
               animate={{ opacity: 1, y: 0, skewY: 0 }}
               transition={{ duration: 0.75, delay: 0.3 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
-              {word === "Don't." ? <span className="text-accent">{word}</span> : word}
+              {(word === 'You' || word === 'Actually' || word === 'Are.') ? <span className="text-accent">{word}</span> : word}
             </motion.span>
           ))}
         </h1>
