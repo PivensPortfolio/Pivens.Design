@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, Zap, Shield, Clock, Star, Check, ChevronDown, Menu, X } from 'lucide-react'
 import { formatPhone, emailStatus } from './utils/format'
 import { getCookie } from './utils/cookies'
@@ -118,6 +118,8 @@ const READINESS_OPTIONS = [
   { value: 'exploring', label: 'Just exploring', sub: 'No rush' },
 ]
 
+const INDUSTRIES = ['E-commerce', 'SaaS', 'Agency', 'Consulting', 'Personal Brand', 'Retail', 'Other']
+
 function useSectionReveal() {
   return {
     initial: { opacity: 0, y: 40 },
@@ -128,8 +130,7 @@ function useSectionReveal() {
 }
 
 function openContactForm() {
-  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
-  setTimeout(() => window.dispatchEvent(new CustomEvent('open-contact-form')), 400)
+  window.dispatchEvent(new CustomEvent('open-contact-form'))
 }
 
 function Ticker() {
@@ -646,28 +647,58 @@ function Testimonials() {
   )
 }
 
-function CTA() {
-  const [showForm, setShowForm] = useState(false)
+function ContactWizard() {
+  const [open, setOpen] = useState(false)
+  const [step, setStep] = useState(1)
+  const [dir, setDir] = useState(1)
   const [submitted, setSubmitted] = useState(false)
   const [sendStatus, setSendStatus] = useState('idle')
+  const [name, setName] = useState('')
+  const [business, setBusiness] = useState('')
+  const [industry, setIndustry] = useState('')
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
+  const [website, setWebsite] = useState('')
   const [readiness, setReadiness] = useState('')
-  const formRef = useRef(null)
+  const [message, setMessage] = useState('')
 
   useEffect(() => {
-    const handler = () => setShowForm(true)
+    const handler = () => {
+      setOpen(true)
+      setStep(1)
+      setDir(1)
+      setSubmitted(false)
+      setSendStatus('idle')
+    }
     window.addEventListener('open-contact-form', handler)
     return () => window.removeEventListener('open-contact-form', handler)
   }, [])
 
-  async function handleSubmit(e) {
-    e.preventDefault()
+  useEffect(() => {
+    const onKey = e => { if (e.key === 'Escape') setOpen(false) }
+    if (open) document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [open])
+
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [open])
+
+  function advance() {
+    setDir(1)
+    setStep(s => Math.min(s + 1, 6))
+  }
+
+  function retreat() {
+    setDir(-1)
+    if (step > 1) setStep(s => s - 1)
+    else setOpen(false)
+  }
+
+  async function submit() {
     setSendStatus('sending')
-
     const variant = getCookie('pv_hero') ?? 'new'
-    const data = Object.fromEntries(new FormData(formRef.current))
-
     const readinessLabel = {
       ready: 'Ready to start',
       deciding: 'Deciding soon',
@@ -676,20 +707,21 @@ function CTA() {
 
     const body = [
       `📱 ${phone || '—'}`,
-      `🏢 ${data.business || '—'}`,
+      `🏢 ${business || '—'}`,
       `✉️  ${email || '—'}`,
-      `🌐 ${data.website || '—'}`,
+      `🌐 ${website || '—'}`,
+      `🏷️ ${industry || '—'}`,
       `⏱️  ${readinessLabel || '—'}`,
       `🧭 Hero variant: ${variant}`,
       '',
-      data.message,
+      message,
     ].join('\n')
 
     try {
       const res = await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
         method: 'POST',
         headers: {
-          'Title': `New Lead: ${data.name}`,
+          'Title': `New Lead: ${name || 'Anonymous'}`,
           'Priority': 'high',
           'Tags': 'raising_hand,pivens',
           'Content-Type': 'text/plain',
@@ -697,24 +729,282 @@ function CTA() {
         body,
       })
       if (!res.ok) throw new Error(`ntfy ${res.status}`)
-
       if (typeof window.plausible === 'function') {
         window.plausible('Lead', { props: { variant } })
       }
-
       setSubmitted(true)
-      setPhone('')
-      setEmail('')
-      setReadiness('')
-      if (formRef.current) formRef.current.reset()
     } catch {
       setSendStatus('error')
     }
   }
 
-  const inputCls =
-    'bg-white border border-black/15 rounded-xl px-4 py-3 text-gray-900 placeholder:text-gray-400 text-sm focus:outline-none focus:border-black/40 transition-colors w-full'
+  if (!open) return null
 
+  const monoStyle = { fontFamily: "'IBM Plex Mono', monospace" }
+  const pillCls = 'border-4 border-black rounded-full h-24 md:h-[100px] px-8 text-2xl md:text-[40px] font-semibold text-black placeholder:text-black/30 bg-transparent focus:outline-none w-full font-display tracking-tight'
+  const labelEl = txt => (
+    <span className="text-xs font-bold tracking-widest uppercase text-black" style={monoStyle}>{txt}</span>
+  )
+
+  const stepMap = {
+    1: (
+      <div className="flex flex-col gap-16">
+        <div className="flex flex-col gap-5">
+          <h1 className="font-display text-[clamp(48px,7vw,80px)] font-extrabold text-black uppercase leading-[0.9] tracking-tight">
+            <span className="block">WHAT'S</span>
+            <span className="block">YOUR NAME?</span>
+          </h1>
+          <p className="text-black/60 text-lg font-body max-w-lg leading-relaxed">
+            We'll use this to personalize your experience.
+          </p>
+        </div>
+        <div className="flex flex-col gap-4">
+          {labelEl('YOUR NAME')}
+          <input autoFocus type="text" value={name} onChange={e => setName(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && name && advance()}
+            placeholder="Type your full name" className={pillCls} />
+        </div>
+      </div>
+    ),
+    2: (
+      <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-5">
+          <h1 className="font-display text-[clamp(40px,6vw,80px)] font-extrabold text-black uppercase leading-[0.9] tracking-tight">
+            <span className="block">WHAT'S YOUR</span>
+            <span className="block">BUSINESS CALLED?</span>
+          </h1>
+          <p className="text-black/60 text-lg font-body max-w-lg leading-relaxed">
+            We'll use this to set up your workspace. You can change it later.
+          </p>
+        </div>
+        <div className="flex flex-col gap-10">
+          <div className="flex flex-col gap-4">
+            {labelEl('BUSINESS NAME')}
+            <input autoFocus type="text" value={business} onChange={e => setBusiness(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && advance()}
+              placeholder="Type your business name" className={pillCls} />
+          </div>
+          <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-1">
+              {labelEl('INDUSTRY OR CATEGORY')}
+              <p className="text-black text-lg font-semibold font-display">Which category describes you best?</p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              {INDUSTRIES.map(ind => (
+                <button key={ind} type="button" onClick={() => setIndustry(ind === industry ? '' : ind)}
+                  className={`px-6 py-3 rounded-full border-2 border-black text-sm font-semibold font-display transition-colors ${
+                    industry === ind ? 'bg-black text-[#c5f53a]' : 'bg-transparent text-black hover:bg-black/8'
+                  }`}>
+                  {ind}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+    3: (
+      <div className="flex flex-col gap-16">
+        <div className="flex flex-col gap-5">
+          <h1 className="font-display text-[clamp(48px,7vw,80px)] font-extrabold text-black uppercase leading-[0.9] tracking-tight">
+            <span className="block">WHAT'S YOUR</span>
+            <span className="block">PHONE NUMBER?</span>
+          </h1>
+          <p className="text-black/60 text-lg font-body max-w-lg leading-relaxed">
+            I'll reach out within 24 hours.
+          </p>
+        </div>
+        <div className="flex flex-col gap-4">
+          {labelEl('PHONE NUMBER')}
+          <input autoFocus type="tel" value={phone}
+            onChange={e => setPhone(formatPhone(e.target.value))}
+            onKeyDown={e => e.key === 'Enter' && phone && advance()}
+            placeholder="(555) 555-5555" className={pillCls} />
+        </div>
+      </div>
+    ),
+    4: (
+      <div className="flex flex-col gap-16">
+        <div className="flex flex-col gap-5">
+          <h1 className="font-display text-[clamp(48px,7vw,80px)] font-extrabold text-black uppercase leading-[0.9] tracking-tight">
+            <span className="block">WHAT'S</span>
+            <span className="block">YOUR EMAIL?</span>
+          </h1>
+          <p className="text-black/60 text-lg font-body max-w-lg leading-relaxed">
+            Optional — only if you'd prefer email over text.
+          </p>
+        </div>
+        <div className="flex flex-col gap-4">
+          {labelEl('EMAIL ADDRESS (OPTIONAL)')}
+          <input autoFocus type="email" value={email} onChange={e => setEmail(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && advance()}
+            placeholder="your@email.com"
+            className={pillCls}
+            style={{
+              outline: emailStatus(email) === 'valid' ? '4px solid #16a34a'
+                : emailStatus(email) === 'invalid' ? '4px solid #dc2626'
+                : 'none',
+              outlineOffset: '2px',
+            }} />
+        </div>
+      </div>
+    ),
+    5: (
+      <div className="flex flex-col gap-16">
+        <div className="flex flex-col gap-5">
+          <h1 className="font-display text-[clamp(48px,7vw,80px)] font-extrabold text-black uppercase leading-[0.9] tracking-tight">
+            <span className="block">GOT A</span>
+            <span className="block">WEBSITE?</span>
+          </h1>
+          <p className="text-black/60 text-lg font-body max-w-lg leading-relaxed">
+            Optional — drop your URL if you have one.
+          </p>
+        </div>
+        <div className="flex flex-col gap-4">
+          {labelEl('EXISTING WEBSITE (OPTIONAL)')}
+          <input autoFocus type="url" value={website} onChange={e => setWebsite(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && advance()}
+            placeholder="https://yourwebsite.com" className={pillCls} />
+        </div>
+      </div>
+    ),
+    6: (
+      <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-5">
+          <h1 className="font-display text-[clamp(40px,6vw,80px)] font-extrabold text-black uppercase leading-[0.9] tracking-tight">
+            <span className="block">TELL US ABOUT</span>
+            <span className="block">YOUR BUSINESS.</span>
+          </h1>
+          <p className="text-black/60 text-lg font-body max-w-lg leading-relaxed">
+            What do you need help with? The more detail, the better.
+          </p>
+        </div>
+        <div className="flex flex-col gap-8">
+          <div className="grid grid-cols-3 gap-3">
+            {READINESS_OPTIONS.map(opt => (
+              <button key={opt.value} type="button"
+                onClick={() => setReadiness(readiness === opt.value ? '' : opt.value)}
+                className={`flex flex-col items-center justify-center gap-1 h-[88px] p-4 rounded-2xl border-2 border-black transition-colors text-center font-display ${
+                  readiness === opt.value ? 'bg-[#1a1a1a] text-white border-[#1a1a1a]' : 'bg-transparent text-black hover:bg-black/8'
+                }`}>
+                <span className="font-bold text-base leading-tight">{opt.label}</span>
+                <span className="text-xs font-normal opacity-70">{opt.sub}</span>
+              </button>
+            ))}
+          </div>
+          <div className="flex flex-col gap-4">
+            {labelEl('ANYTHING ELSE WE SHOULD KNOW?')}
+            <textarea rows={5} value={message} onChange={e => setMessage(e.target.value)}
+              placeholder="Tell me a bit about your business and what you need"
+              className="border-4 border-black rounded-3xl px-8 py-6 text-xl font-semibold text-black placeholder:text-black/30 bg-transparent focus:outline-none w-full font-display resize-none" />
+            {sendStatus === 'error' && (
+              <p className="text-red-700 text-sm">Something went wrong. Please try again.</p>
+            )}
+            <p className="text-black/50 text-xs leading-relaxed font-body">
+              By submitting this form you agree to be contacted by text message. Message and data rates may apply. Reply STOP at any time to opt out.
+            </p>
+          </div>
+        </div>
+      </div>
+    ),
+  }
+
+  return (
+    <div className="fixed inset-0 z-[60] overflow-hidden" style={{ backgroundColor: '#c5f53a' }}>
+      {/* Decorative corner elements */}
+      <svg className="absolute right-[-80px] top-[80px] w-[360px] h-[360px] opacity-[0.12] pointer-events-none" viewBox="0 0 360 360" fill="none">
+        {Array.from({ length: 12 }, (_, i) => {
+          const a = (i * 30 * Math.PI) / 180
+          return <line key={i} x1="180" y1="180" x2={180 + 168 * Math.cos(a)} y2={180 + 168 * Math.sin(a)} stroke="black" strokeWidth="10" strokeLinecap="round" />
+        })}
+        <circle cx="180" cy="180" r="28" fill="black" />
+      </svg>
+      <svg className="absolute left-[-64px] bottom-[64px] w-[280px] h-[280px] opacity-[0.12] pointer-events-none" viewBox="0 0 280 280" fill="none">
+        {Array.from({ length: 12 }, (_, i) => {
+          const a = (i * 30 * Math.PI) / 180
+          return <line key={i} x1="140" y1="140" x2={140 + 128 * Math.cos(a)} y2={140 + 128 * Math.sin(a)} stroke="black" strokeWidth="8" strokeLinecap="round" />
+        })}
+        <circle cx="140" cy="140" r="22" fill="black" />
+      </svg>
+
+      {submitted ? (
+        <motion.div
+          key="success"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute inset-0 flex flex-col items-center justify-center gap-8 text-center px-10"
+        >
+          <div className="w-20 h-20 rounded-full bg-black/15 flex items-center justify-center">
+            <Check size={36} className="text-black" />
+          </div>
+          <div>
+            <h2 className="font-display text-6xl md:text-7xl font-extrabold text-black uppercase tracking-tight leading-none mb-4">
+              Message<br />sent.
+            </h2>
+            <p className="text-black/60 text-lg">I'll be in touch within 24 hours. Talk soon.</p>
+          </div>
+          <button onClick={() => setOpen(false)} className="mt-2 text-black/50 underline text-base font-display hover:text-black transition-colors">
+            Close
+          </button>
+        </motion.div>
+      ) : (
+        <>
+          {/* Header */}
+          <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-10 md:px-20 pt-14 pb-4 z-10">
+            <button onClick={retreat} className="flex items-center gap-3 text-black hover:opacity-60 transition-opacity">
+              <ArrowRight size={20} className="rotate-180" />
+              <span className="text-base font-semibold font-display">Back</span>
+            </button>
+            <div className="flex items-center gap-2" style={monoStyle}>
+              <span className="text-sm font-semibold tracking-widest uppercase text-black">STEP</span>
+              <span className="text-xl font-bold text-black">{String(step).padStart(2, '0')}</span>
+              <span className="text-sm text-black/50">/ 06</span>
+            </div>
+            <button onClick={advance} className="text-base font-semibold underline text-black hover:opacity-60 transition-opacity font-display">
+              Skip for now
+            </button>
+          </div>
+
+          {/* Step content */}
+          <AnimatePresence mode="wait" custom={dir}>
+            <motion.div
+              key={step}
+              custom={dir}
+              variants={{
+                initial: d => ({ x: d * 60, opacity: 0 }),
+                animate: { x: 0, opacity: 1 },
+                exit: d => ({ x: d * -60, opacity: 0 }),
+              }}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute inset-0 flex flex-col justify-center px-10 md:px-20 pt-[140px] pb-[120px] overflow-y-auto"
+            >
+              {stepMap[step]}
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Next / Submit button */}
+          <div className="absolute bottom-16 right-10 md:right-20 z-10">
+            <button
+              onClick={step < 6 ? advance : submit}
+              disabled={sendStatus === 'sending'}
+              className="flex items-center gap-3 h-16 px-10 rounded-full bg-[#1a1a1a] text-white font-bold text-xl hover:opacity-85 transition-opacity disabled:opacity-60 font-display"
+            >
+              {sendStatus === 'sending' ? 'Sending...' : (
+                <>{step < 6 ? 'Next' : 'Send Message'}<ArrowRight size={18} /></>
+              )}
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
+function CTA() {
   return (
     <section id="contact" className="py-32 max-w-7xl mx-auto px-6">
       <motion.div
@@ -723,163 +1013,28 @@ function CTA() {
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        layout
       >
         <div
           className="absolute inset-0 opacity-[0.06] pointer-events-none"
           style={{ backgroundImage: 'radial-gradient(circle, #000 1px, transparent 1px)', backgroundSize: '28px 28px' }}
         />
-
-        <div className="relative">
-          {/* Headline state */}
-          {!showForm && !submitted && (
-            <motion.div key="headline" className="p-14 md:p-20 text-center">
-              <p className="text-accent-foreground/70 text-xs font-semibold tracking-widest uppercase mb-4">Get Started</p>
-              <h2 className="font-display text-5xl md:text-7xl font-extrabold text-accent-foreground tracking-tighter mb-6">
-                Tell me about<br />your business.
-              </h2>
-              <p className="text-accent-foreground/70 text-lg max-w-lg mx-auto mb-10 leading-relaxed">
-                I'll text you within 24 hours.
-              </p>
-              <motion.button
-                onClick={() => setShowForm(true)}
-                className="inline-flex items-center gap-2 px-9 py-4 rounded-full bg-accent-foreground text-accent font-bold text-base hover:opacity-90 transition-all duration-200"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.97 }}
-              >
-                Get Started
-                <ArrowRight size={17} />
-              </motion.button>
-            </motion.div>
-          )}
-
-          {/* Form state */}
-          {showForm && !submitted && (
-            <motion.div
-              key="form"
-              className="p-10 md:p-16"
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <div className="max-w-2xl mx-auto">
-                <p className="text-accent-foreground/70 text-xs font-semibold tracking-widest uppercase mb-3">Get Started</p>
-                <h2 className="font-display text-4xl md:text-5xl font-extrabold text-accent-foreground tracking-tighter mb-2">
-                  Tell me about<br />your business.
-                </h2>
-                <p className="text-accent-foreground/70 mb-8">I'll text you within 24 hours.</p>
-
-                <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
-                  <input required type="text" name="name" placeholder="Your name" className={inputCls} />
-                  <input required type="text" name="business" placeholder="Business name" className={inputCls} />
-                  <input
-                    required
-                    type="tel"
-                    name="phone"
-                    placeholder="(555) 555-5555"
-                    value={phone}
-                    onChange={e => setPhone(formatPhone(e.target.value))}
-                    className={inputCls}
-                  />
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email address (optional)"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    className={inputCls}
-                    style={{
-                      outline: emailStatus(email) === 'valid' ? '2px solid #22c55e'
-                        : emailStatus(email) === 'invalid' ? '2px solid #f87171'
-                        : 'none',
-                    }}
-                  />
-                  <input type="url" name="website" placeholder="Existing website URL (optional)" className={inputCls} />
-                  <input type="hidden" name="readiness" value={readiness} />
-
-                  <div>
-                    <p className="text-accent-foreground/70 text-xs font-semibold tracking-widest uppercase mb-3">
-                      How ready are you to get started?
-                    </p>
-                    <div className="grid grid-cols-3 gap-2">
-                      {READINESS_OPTIONS.map(opt => (
-                        <button
-                          key={opt.value}
-                          type="button"
-                          onClick={() => setReadiness(opt.value)}
-                          className={`py-3 px-2 rounded-xl border text-center transition-all duration-200 ${
-                            readiness === opt.value
-                              ? 'bg-accent-foreground text-accent border-transparent'
-                              : 'bg-white/80 text-gray-700 border-black/10 hover:border-black/30'
-                          }`}
-                        >
-                          <p className="font-semibold text-sm">{opt.label}</p>
-                          <p className={`text-xs mt-0.5 ${readiness === opt.value ? 'text-accent/70' : 'text-gray-400'}`}>
-                            {opt.sub}
-                          </p>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <textarea
-                    rows={4}
-                    name="message"
-                    placeholder="Tell me a bit about your business and what you need"
-                    className={`${inputCls} resize-none`}
-                  />
-
-                  <p className="text-accent-foreground/50 text-xs leading-relaxed">
-                    By submitting this form you agree to be contacted by text message. Message and data rates may apply. Reply STOP at any time to opt out.
-                  </p>
-
-                  {sendStatus === 'error' && (
-                    <p className="text-red-700 text-sm">Something went wrong. Please try again or reach out directly.</p>
-                  )}
-
-                  <div className="flex items-center gap-4 pt-1">
-                    <motion.button
-                      type="submit"
-                      disabled={sendStatus === 'sending'}
-                      className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-accent-foreground text-accent font-bold text-sm hover:opacity-90 transition-all duration-200 disabled:opacity-60"
-                      whileHover={{ scale: 1.04 }}
-                      whileTap={{ scale: 0.97 }}
-                    >
-                      {sendStatus === 'sending' ? 'Sending...' : <><span>Send Message</span><ArrowRight size={15} /></>}
-                    </motion.button>
-                    <button
-                      type="button"
-                      onClick={() => { setShowForm(false); setSendStatus('idle') }}
-                      className="text-accent-foreground/50 text-sm hover:text-accent-foreground/80 transition-colors"
-                    >
-                      Back
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </motion.div>
-          )}
-
-          {/* Success state */}
-          {submitted && (
-            <motion.div
-              key="success"
-              className="p-14 md:p-20 text-center"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <div className="w-14 h-14 rounded-full bg-black/15 flex items-center justify-center mx-auto mb-6">
-                <Check size={26} className="text-accent-foreground" />
-              </div>
-              <h2 className="font-display text-4xl md:text-5xl font-extrabold text-accent-foreground tracking-tighter mb-4">
-                Message sent.
-              </h2>
-              <p className="text-accent-foreground/70 text-lg max-w-md mx-auto">
-                I'll be in touch within 24 hours. Talk soon.
-              </p>
-            </motion.div>
-          )}
+        <div className="relative p-14 md:p-20 text-center">
+          <p className="text-accent-foreground/70 text-xs font-semibold tracking-widest uppercase mb-4">Get Started</p>
+          <h2 className="font-display text-5xl md:text-7xl font-extrabold text-accent-foreground tracking-tighter mb-6">
+            Tell me about<br />your business.
+          </h2>
+          <p className="text-accent-foreground/70 text-lg max-w-lg mx-auto mb-10 leading-relaxed">
+            I'll text you within 24 hours.
+          </p>
+          <motion.button
+            onClick={openContactForm}
+            className="inline-flex items-center gap-2 px-9 py-4 rounded-full bg-accent-foreground text-accent font-bold text-base hover:opacity-90 transition-all duration-200"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            Get Started
+            <ArrowRight size={17} />
+          </motion.button>
         </div>
       </motion.div>
     </section>
@@ -913,6 +1068,7 @@ function Footer() {
 export default function App() {
   return (
     <div className="relative bg-background text-foreground min-h-screen overflow-x-hidden font-body">
+      <ContactWizard />
       <Nav />
       <Hero />
       <Ticker />
