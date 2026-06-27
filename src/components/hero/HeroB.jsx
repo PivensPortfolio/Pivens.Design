@@ -39,7 +39,7 @@ export default function HeroB() {
           }}
         >
           Your Competitors<br />Have a Website.<br />
-          <span style={{ color: 'var(--color-accent)' }}>You Don't.</span>
+          <span style={{ color: 'var(--color-accent)', whiteSpace: 'nowrap' }}>You Don't.</span>
         </motion.h1>
         <motion.div
           variants={fadeInUp}
