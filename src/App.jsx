@@ -118,7 +118,7 @@ const READINESS_OPTIONS = [
   { value: 'exploring', label: 'Just exploring', sub: 'No rush' },
 ]
 
-const INDUSTRIES = ['E-commerce', 'SaaS', 'Agency', 'Consulting', 'Personal Brand', 'Retail', 'Other']
+const INDUSTRIES = ['Restaurant / Food', 'Retail / Shop', 'Home Services', 'Beauty & Wellness', 'Contractor', 'Healthcare', 'Auto / Repair', 'Other']
 
 function useSectionReveal() {
   return {
