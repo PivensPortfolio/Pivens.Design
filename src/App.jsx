@@ -78,6 +78,18 @@ const WORK = [
     desc: 'Family-grown plant nursery in Eugene, OR since 1981 — gallery, seasonal blooms, events, and location.',
     url: 'https://erwins-quality-plants.vercel.app',
   },
+  {
+    name: 'Savona Coffee House',
+    desc: 'Riverfront coffeehouse in Vancouver, WA — espresso, breakfast, ice cream, and outdoor seating on the Columbia.',
+    url: 'https://savona-coffeehouse.vercel.app',
+    proposal: true,
+  },
+  {
+    name: 'Stardust Diner',
+    desc: 'Classic American diner established 1987 — full menu, gallery, and story page with retro neon aesthetic.',
+    url: 'https://stardust-diner.vercel.app',
+    proposal: true,
+  },
 ]
 
 const TESTIMONIALS = [
@@ -545,7 +557,14 @@ function Work() {
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
-              <h3 className="font-display text-xl font-bold text-foreground mb-3 tracking-tight">{project.name}</h3>
+              <div className="flex items-center gap-3 mb-3">
+                <h3 className="font-display text-xl font-bold text-foreground tracking-tight">{project.name}</h3>
+                {project.proposal && (
+                  <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--color-accent)', border: '1px solid var(--color-accent)', padding: '2px 7px', borderRadius: 3, whiteSpace: 'nowrap', flexShrink: 0 }}>
+                    Design Proposal
+                  </span>
+                )}
+              </div>
               <p className="text-muted-foreground text-sm font-body leading-relaxed mb-6">{project.desc}</p>
               <a
                 href={project.url}

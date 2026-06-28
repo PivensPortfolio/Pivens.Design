@@ -17,6 +17,18 @@ const projects = [
     description: 'Family-grown plant nursery in Eugene, OR since 1981 — gallery, seasonal blooms, events, and location.',
     url: 'https://erwins-quality-plants.vercel.app',
   },
+  {
+    name: 'Savona Coffee House',
+    description: 'Riverfront coffeehouse in Vancouver, WA — espresso, breakfast, ice cream, and outdoor seating on the Columbia.',
+    url: 'https://savona-coffeehouse.vercel.app',
+    proposal: true,
+  },
+  {
+    name: 'Stardust Diner',
+    description: 'Classic American diner established 1987 — full menu, gallery, and story page with retro neon aesthetic.',
+    url: 'https://stardust-diner.vercel.app',
+    proposal: true,
+  },
 ]
 
 export default function Portfolio() {
@@ -49,9 +61,20 @@ export default function Portfolio() {
               whileHover={{ scale: 1.02, boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}
               style={{ background: 'var(--color-bg-card)', padding: 28, transition: 'box-shadow 0.2s' }}
             >
-              <h3 style={{ fontFamily: 'var(--font-black)', color: '#fff', fontSize: 18, fontWeight: 900, marginBottom: 10 }}>
-                {project.name}
-              </h3>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+                <h3 style={{ fontFamily: 'var(--font-black)', color: '#fff', fontSize: 18, fontWeight: 900, margin: 0 }}>
+                  {project.name}
+                </h3>
+                {project.proposal && (
+                  <span style={{
+                    fontSize: 9, fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase',
+                    color: 'var(--color-accent)', border: '1px solid var(--color-accent)',
+                    padding: '2px 7px', borderRadius: 3, whiteSpace: 'nowrap', flexShrink: 0,
+                  }}>
+                    Design Proposal
+                  </span>
+                )}
+              </div>
               {project.description && (
                 <p style={{ color: 'var(--color-text-muted)', fontSize: 14, lineHeight: 1.6, marginBottom: 16 }}>
                   {project.description}
@@ -61,7 +84,7 @@ export default function Portfolio() {
                 <a href={project.url} target="_blank" rel="noopener noreferrer" style={{
                   color: 'var(--color-accent)', fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: 'uppercase'
                 }}>
-                  View Live Site →
+                  View Site →
                 </a>
               ) : (
                 <span style={{ color: '#444', fontSize: 12, fontStyle: 'italic' }}>Coming soon</span>
