@@ -572,7 +572,7 @@ function Work() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-accent text-xs font-bold tracking-wider uppercase group-hover:gap-3 transition-all duration-200"
               >
-                View Live Site <ArrowRight size={13} />
+                {project.proposal ? 'View Design' : 'View Live Site'} <ArrowRight size={13} />
               </a>
             </motion.div>
           ))}
